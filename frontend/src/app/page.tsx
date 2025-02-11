@@ -28,15 +28,12 @@ export default function Home() {
 
 	const { data: session } = useSession();
 
-	console.log("Session:");
-	console.log(session);
-
 	const handleSubmit = (link: string) => {
 		setPlaylist("This may take a few minutes depending on the playlist's size");
 		const linkArray = link.split("/");
 		const linkId = linkArray[linkArray.length - 1].split("?")[0];
 
-		fetch(`${process.env.SERVER_URL}/to-ytm/${linkId}`, {
+		fetch(`https://api.convert-playlists.taqi.dev/to-ytm/${linkId}`, {
 			method: "POST",
 			body: JSON.stringify(session),
 			headers: {
@@ -44,9 +41,7 @@ export default function Home() {
 			},
 		})
 			.then((res) => {
-				console.log(res);
 				res.json().then((data) => {
-					console.log(data);
 					if (typeof data.playlist !== "string") {
 						setPlaylist("ensure your account has a channel");
 					} else setPlaylist(data.playlist);
@@ -62,11 +57,9 @@ export default function Home() {
 					}
 				});
 			})
-			.catch((e) => {
+			.catch(() => {
 				setPlaylist("Invalid Link");
-				console.log(e);
 			});
-		console.log(playlist);
 	};
 
 	return (
@@ -107,7 +100,7 @@ export default function Home() {
 									<li className="ball" />
 									<li className="ball" />
 								</div>
-								<p>{playlist}</p>
+								<p className="text-center">{playlist}</p>
 							</div>
 						)}
 					</div>

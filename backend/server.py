@@ -16,7 +16,7 @@ def spotify(playlist_id):
     try:
         r = requests.post(
             "https://accounts.spotify.com/api/token",
-            data={"grant_type": "client_credentials", "client_id": os.getenv("SPOTIFY_CLIENT_ID"), "client_secret": os.getenv("SPOTIFY_CLIENT_SECRET")},
+            data={"grant_type": "client_credentials", "client_id": os.environ.get("SPOTIFY_CLIENT_ID"), "client_secret": os.environ.get("SPOTIFY_CLIENT_SECRET")},
             headers={"Content-Type": "application/x-www-form-urlencoded"}
         ).json()
 
@@ -56,28 +56,20 @@ def spotify(playlist_id):
             'scope': session_data["scope"],
             'expires_at': session_data["expires_at"],
             'token_type': "Bearer"
-        }, oauth_credentials=OAuthCredentials(client_id=os.getenv("YTMUSIC_CLIENT_ID"), client_secret=os.getenv("YTMUSIC_CLIENT_SECRET")))
+        }, oauth_credentials=OAuthCredentials(client_id=os.environ.get("YTMUSIC_CLIENT_ID"), client_secret=os.environ.get("YTMUSIC_CLIENT_SECRET")))
 
         track_ids = []
         for i in range(len(tracks[0])):
             artists = ""
             for artist in tracks[1][i]:
-                app.logger.info(artist)
                 if artist["name"] != None:
                     artists += artist["name"] + " "
-            app.logger.info(f'{tracks[0][i]} {artists}');
             track_ids.append(ytmusic.search(f'{tracks[0][i]} {artists}', filter="videos", limit=1)[0]["videoId"])
 
-        app.logger.info(ytmusic.get_account_info())
-        app.logger.info(track_ids)
         yt_playlist_id = ytmusic.create_playlist(playlist_name, "Converted from Spotify \n(https://fuck-spotify.taqi.dev/)", video_ids=track_ids, privacy_status="PUBLIC")
-        app.logger.info(yt_playlist_id)
         
     except Exception as error:
-        app.logger.info(error)
         return jsonify({"playlist": str(error)}), 404
-
-    app.logger.info(request.data);
 
     return jsonify({
         "playlist": yt_playlist_id,
