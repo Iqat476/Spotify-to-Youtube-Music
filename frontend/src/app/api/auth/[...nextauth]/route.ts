@@ -1,11 +1,13 @@
 import NextAuth from "next-auth";
+import type { Account, Session } from "next-auth";
+import type { JWT } from "next-auth/jwt";
 import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions = {
 	providers: [
 		GoogleProvider({
-			clientId: process.env.GOOGLE_OAUTH_CLIENT_ID ?? "",
-			clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET ?? "",
+			clientId: process.env.GOOGLE_OAUTH_CLIENT_ID as string,
+			clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET as string,
 			authorization: {
 				params: {
 					scope:
@@ -20,7 +22,7 @@ export const authOptions = {
 	secret: process.env.NEXTAUTH_SECRET,
 
 	callbacks: {
-		async jwt({ token, account }) {
+		async jwt({ token, account }: { token: JWT; account: Account | null }) {
 			if (account) {
 				token = Object.assign({}, token, {
 					access_token: account.access_token,
@@ -31,7 +33,7 @@ export const authOptions = {
 			}
 			return token;
 		},
-		async session({ session, token }) {
+		async session({ session, token }: { session: Session; token: JWT }) {
 			if (session) {
 				session = Object.assign({}, session, {
 					access_token: token.access_token,
