@@ -39,6 +39,7 @@ export default function Home() {
 			headers: {
 				"Content-Type": "application/json; charset=UTF-8",
 			},
+			mode: "cors",
 		})
 			.then((res) => {
 				res.json().then((data) => {
