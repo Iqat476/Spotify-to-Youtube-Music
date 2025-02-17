@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Theme from "./components/Theme";
+import Footer from "./components/Footer";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./lib/auth";
 import AuthProvider from "./components/AuthProvider";
@@ -23,12 +24,13 @@ export default async function RootLayout({
 	return (
 		<html lang="en" className="dark">
 			<body className={inter.className}>
-				<div className="bg-light text-dark dark:bg-dark dark:text-light">
-					<AuthProvider session={session}>
+				<AuthProvider session={session}>
+					<div className="bg-light text-dark dark:bg-dark dark:text-light min-h-screen flex flex-col">
 						<Theme />
-						{children}
-					</AuthProvider>
-				</div>
+						<div className="flex flex-grow justify-center">{children}</div>
+						<Footer />
+					</div>
+				</AuthProvider>
 			</body>
 		</html>
 	);

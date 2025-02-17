@@ -8,7 +8,11 @@ export default function Login() {
 
 	if (session) {
 		return (
-			<button type="button" onClick={() => signOut()} className="flex gap-3">
+			<button
+				type="button"
+				onClick={() => signOut()}
+				className="flex gap-3 pl-1"
+			>
 				<div className="px-3 py-1 text-white rounded-lg bg-secondary-light hover:bg-secondary-dark duration-300 m-auto">
 					Sign Out
 				</div>
@@ -39,7 +43,7 @@ export default function Login() {
 						/>
 					</div>
 
-					<p className="absolute mt-[72px]">{session.user?.name}</p>
+					<p className="absolute mt-[72px] text-center">{session.user?.name}</p>
 				</div>
 			</button>
 		);

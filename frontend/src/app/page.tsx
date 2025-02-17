@@ -29,7 +29,7 @@ export default function Home() {
 	const { data: session } = useSession();
 
 	const handleSubmit = (link: string) => {
-		setPlaylist("This may take a few minutes depending on the playlist's size");
+		setPlaylist("This may take a while depending on the playlist's size");
 		const linkArray = link.split("/");
 		const linkId = linkArray[linkArray.length - 1].split("?")[0];
 
@@ -54,36 +54,42 @@ export default function Home() {
 							"Error 403: Log in again and give permission to manage your youtube channel",
 						);
 					} else if (!res.ok) {
+						if (res.status === 429) {
+							setPlaylist("You've reached the rate limit, try again later");
+						}
 						setPlaylist("an error occurred");
 					}
 				});
 			})
 			.catch(() => {
-				setPlaylist("Invalid Link");
+				setPlaylist("Invalid Link/Private Playlist");
 			});
 	};
 
+	const errors = [
+		"You've reached the rate limit, try again later",
+		"Invalid Link/Private Playlist",
+		"an error occurred",
+		"ensure your account has a channel",
+		"Error 403: Log in again and give permission to manage your youtube channel",
+	];
+
 	return (
-		<main className="flex min-h-screen flex-col items-center align-middle justify-center p-24">
+		<main className="flex flex-col items-center align-middle justify-center p-24">
 			<div className="opacity-0 transition-opacity duration-300" id="container">
 				{session ? (
 					<div>
 						<div>
-							<h2>
+							<h2 className="text-center">
 								<span className="text-primary-light">Spotify</span> To{" "}
 								<span className="text-secondary-light">Youtube Music</span>
 							</h2>
-							<h1 className="pb-8 pt-1"> Playlists Converter</h1>
+							<h1 className="pb-8 pt-1 text-center"> Playlists Converter</h1>
 						</div>
 						<Input handleSubmit={handleSubmit} />
 						{playlist !==
-						"This may take a few minutes depending on the playlist's size" ? (
-							playlist &&
-							playlist !== "Invalid Link" &&
-							playlist !== "an error occurred" &&
-							playlist !== "ensure your account has a channel" &&
-							playlist !==
-								"Error 403: Log in again and give permission to manage your youtube channel" ? (
+						"This may take a while depending on the playlist's size" ? (
+							playlist && !errors.includes(playlist) ? (
 								<Link
 									className="hover:text-secondary-light duration-200"
 									target="_blank"
@@ -108,8 +114,8 @@ export default function Home() {
 				) : (
 					<div className="flex flex-col justify-center items-center gap-4">
 						<div>
-							<h2 className="pb-1">Log in before continuing</h2>
-							<h4 className="opacity-70">
+							<h2 className="pb-1 text-center">Log in before continuing</h2>
+							<h4 className="opacity-70 text-center">
 								ensure you give permission to manage your youtube channel
 							</h4>
 						</div>

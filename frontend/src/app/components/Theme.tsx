@@ -19,7 +19,7 @@ export default function Theme() {
 
 	// Copied from https://uiverse.io/cuzpq/gentle-goat-72
 	return (
-		<div className="w-full h-5 flex items-center justify-end absolute mt-6 pr-10">
+		<div className="w-full h-5 flex items-center justify-end absolute mt-6 pr-3">
 			<input
 				id="theme"
 				type="checkbox"

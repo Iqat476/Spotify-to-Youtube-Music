@@ -27,19 +27,23 @@ body {
 }
 
 h1 {
-  @apply text-6xl sm:text-7xl md:text-8xl font-semibold tracking-tight text-center;
+  @apply text-6xl sm:text-7xl md:text-8xl font-semibold tracking-tight;
 }
 
 h2 {
-  @apply text-xl sm:text-3xl md:text-4xl font-semibold tracking-tighter text-center;
+  @apply text-xl sm:text-3xl md:text-4xl font-semibold tracking-tighter;
+}
+
+h3 {
+  @apply text-lg sm:text-xl md:text-2xl font-semibold;
 }
 
 h4 {
-  @apply text-xs sm:text-sm md:text-base text-center;
+  @apply text-xs sm:text-sm md:text-base;
 }
 
 p {
-  @apply text-sm;
+  @apply text-xs sm:text-sm;
 }
 
 /* Copied from https://uiverse.io/cuzpq/gentle-goat-72 */
