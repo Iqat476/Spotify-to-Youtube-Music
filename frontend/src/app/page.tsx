@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Input from "./components/Input";
 import { useEffect, useState } from "react";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function Home() {
 	useEffect(() => {
@@ -78,39 +78,59 @@ export default function Home() {
 		<main className="flex flex-col items-center align-middle justify-center p-24">
 			<div className="opacity-0 transition-opacity duration-300" id="container">
 				{session ? (
-					<div>
+					session.scope.includes("https://www.googleapis.com/auth/youtube") ? (
 						<div>
-							<h2 className="text-center">
-								<span className="text-primary-light">Spotify</span> To{" "}
-								<span className="text-secondary-light">Youtube Music</span>
-							</h2>
-							<h1 className="pb-8 pt-1 text-center"> Playlists Converter</h1>
-						</div>
-						<Input handleSubmit={handleSubmit} />
-						{playlist !==
-						"This may take a while depending on the playlist's size" ? (
-							playlist && !errors.includes(playlist) ? (
-								<Link
-									className="hover:text-secondary-light duration-200"
-									target="_blank"
-									href={`https://music.youtube.com/playlist?list=${playlist}`}
-								>
-									<p className="text-center">{`https://music.youtube.com/playlist?list=${playlist}`}</p>
-								</Link>
-							) : (
-								<p className="text-center">{playlist}</p>
-							)
-						) : (
-							<div className="flex flex-col mt-1 gap-2 items-center justify-center">
-								<div className="loader">
-									<li className="ball" />
-									<li className="ball" />
-									<li className="ball" />
-								</div>
-								<p className="text-center">{playlist}</p>
+							<div>
+								<h2 className="text-center">
+									<span className="text-primary-light">Spotify</span> To{" "}
+									<span className="text-secondary-light">Youtube Music</span>
+								</h2>
+								<h1 className="pb-8 pt-1 text-center"> Playlists Converter</h1>
 							</div>
-						)}
-					</div>
+							<Input handleSubmit={handleSubmit} />
+							{playlist !==
+							"This may take a while depending on the playlist's size" ? (
+								playlist && !errors.includes(playlist) ? (
+									<Link
+										className="hover:text-secondary-light duration-200"
+										target="_blank"
+										href={`https://music.youtube.com/playlist?list=${playlist}`}
+									>
+										<p className="text-center">{`https://music.youtube.com/playlist?list=${playlist}`}</p>
+									</Link>
+								) : (
+									<p className="text-center">{playlist}</p>
+								)
+							) : (
+								<div className="flex flex-col mt-1 gap-2 items-center justify-center">
+									<div className="loader">
+										<li className="ball" />
+										<li className="ball" />
+										<li className="ball" />
+									</div>
+									<p className="text-center">{playlist}</p>
+								</div>
+							)}
+						</div>
+					) : (
+						<div className="flex flex-col justify-center items-center gap-4">
+							<div>
+								<h2 className="pb-1 text-center">
+									Permission to manage youtube
+								</h2>
+								<h4 className="opacity-70 text-center">
+									sign out, and sign in again to give permission
+								</h4>
+							</div>
+							<button
+								type="button"
+								onClick={() => signOut()}
+								className="px-4 py-1 text-white rounded-lg bg-secondary-light hover:bg-secondary-dark duration-300 m-auto"
+							>
+								Sign Out
+							</button>
+						</div>
+					)
 				) : (
 					<div className="flex flex-col justify-center items-center gap-4">
 						<div>
