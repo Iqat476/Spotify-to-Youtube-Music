@@ -43,7 +43,7 @@ export default function TemrsOfServer() {
 			</h4>
 			<h4>A simple Spotify to Youtube Music playlist converter</h4>
 			<h4>
-				You can contact us by phone at +971 50 124 2394, email at me@taqi.dev,
+				You can contact us by email at me@taqi.dev,
 				or by mail to{" "}
 				<strong>
 					<strong>__</strong>
