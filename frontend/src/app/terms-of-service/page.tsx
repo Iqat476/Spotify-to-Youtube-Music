@@ -43,7 +43,7 @@ export default function TemrsOfServer() {
 			</h4>
 			<h4>A simple Spotify to Youtube Music playlist converter</h4>
 			<h4>
-				You can contact us by email at me@taqi.dev,
+				You can contact us by email at muhammad@taqi.dev,
 				or by mail to{" "}
 				<strong>
 					<strong>__</strong>
@@ -151,7 +151,7 @@ export default function TemrsOfServer() {
 			<h4>
 				If you wish to make any use of the Services, Content, or Marks other
 				than as set out in this section or elsewhere in our Legal Terms, please
-				address your request to: me@taqi.dev. If we ever grant you the
+				address your request to: muhammad@taqi.dev. If we ever grant you the
 				permission to post, reproduce, or publicly display any part of our
 				Services or Content, you must identify us as the owners or licensors of
 				the Services, Content, or Marks and ensure that any copyright or
@@ -678,9 +678,9 @@ export default function TemrsOfServer() {
 			<h4>
 				<strong>Spotify to Youtube Music</strong>
 			</h4>
-			<Link href="mailto:me@taqi.dev">
+			<Link href="mailto:muhammad@taqi.dev">
 				<h4>
-					<strong>me@taqi.dev</strong>
+					<strong>muhammad@taqi.dev</strong>
 				</h4>
 			</Link>
 		</div>
