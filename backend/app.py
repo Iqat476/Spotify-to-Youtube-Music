@@ -55,7 +55,7 @@ def spotify(playlist_id):
         return jsonify({"playlist": "Invalid Link/Private Playlist", "error": str(error)}), 404
     
     try:
-        session_data = request.get_json()
+        session_data = request.get_json(force=True)
         if not session_data or not all(k in session_data for k in {"access_token", "refresh_token", "scope", "expires_at"}):
           return jsonify({"error": "Invalid/missing authorization data"}), 400
         
